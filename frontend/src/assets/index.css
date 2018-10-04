@@ -1,0 +1,23 @@
+html, body {
+    height: 100%;
+    overflow-x:hidden;
+  }
+  
+  html {
+    display: table;
+    margin: auto;
+  }
+  
+  body {
+    display: table-cell;
+    vertical-align: middle;
+    padding-bottom:5em;
+    padding-top:1em;
+    color: #555;
+  
+    background: url('./bg.png') no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;    
+  }
