@@ -21,3 +21,12 @@ html, body {
     -o-background-size: cover;
     background-size: cover;    
   }
+
+  .spacer {
+    padding-bottom:0.5em;
+  }
+
+  .center {
+    text-align:center;
+    width: 100%;
+  }

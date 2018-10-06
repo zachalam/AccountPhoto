@@ -4,10 +4,12 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^1.5.1",
+    "config": "^2.0.1",
     "eosjs": "16.0.7",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "react-scripts": "^1.1.5",
+    "scatter-js": "^2.5.2",
     "semantic-ui-css": "^2.4.0",
     "semantic-ui-react": "^0.82.5"
   },

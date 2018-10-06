@@ -1,41 +1,58 @@
 import React, { Component } from 'react';
-import Eos from 'eosjs'; // https://github.com/EOSIO/eosjs
 import { Card, Image, Icon, Button } from 'semantic-ui-react'
 import logo from '../assets/logo.png'
+import scatter from '../services/scatter'
 
 // Index component
 class Index extends Component {
 
-    render() {
-        return (
-            <div>
+  state = {
+    account: {}
+  }
 
-            <img src={logo} />
-    <Card style={{width:'100%'}}>
-      <Card.Content>
-        <Image floated='right' size='mini' src='https://react.semantic-ui.com/images/avatar/large/steve.jpg' />
-        <Card.Header>Molly Thomas</Card.Header>
-        <Card.Meta>New User</Card.Meta>
-        <Card.Description>
-          Molly wants to add you to the group <strong>musicians</strong>
-        </Card.Description>
-      </Card.Content>
-      <Card.Content extra>
-        <div className='ui two buttons'>
-          <Button basic color='green'>
-            Approve
-          </Button>
-          <Button basic color='red'>
-            Decline
-          </Button>
-        </div>
-      </Card.Content>
-    </Card>
+  linkScatter = () => {
+    scatter.connect((eos, account, transactionOptions) => {
+      console.log("account is")
+      console.log(account)
+      this.setState({ account })
+    });
+  }
 
-                
+  forgetScatter = () => {
+    this.setState({account:{}})
+    scatter.forget()
+  }
+
+  componentWillUnmount() {
+    this.forgetScatter()
+  }
+
+  render() {
+    let { account } = this.state
+    return (
+      <div>
+
+
+        <Card style={{width: '100%'}}>
+          <Image src='/images/avatar/large/matthew.png' />
+          <Card.Content>
+            <Card.Header>{account.name}</Card.Header>
+            <Card.Meta>
+              <span className='date'>Joined in 2015</span>
+            </Card.Meta>
+            <Card.Description>
+              This is how you currently appear on the EOS network.
+              <div className={'spacer'} />
+              {account.name ? <Button onClick={this.forgetScatter}>Unlink Scatter</Button> : <Button onClick={this.linkScatter}>Link Scatter</Button>}
+              
+            </Card.Description>
+          </Card.Content>
+
+        </Card>
+
       </div>
-        );
-    }
+    );
+  }
 
 }
 
