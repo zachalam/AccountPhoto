@@ -7,7 +7,7 @@ import 'semantic-ui-css/semantic.min.css';
 import './assets/index.css';
 
 ReactDOM.render(
-    <div>
+    <div className={'container'}>
         <div className={'center'}>  
             <img src={logo} />
         </div>

@@ -15,7 +15,7 @@ html, body {
     padding-top:1em;
     color: #555;
   
-    background: url('./bg.png') no-repeat center center fixed; 
+    background: url('./bg.jpg') no-repeat center center fixed; 
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -23,10 +23,16 @@ html, body {
   }
 
   .spacer {
-    padding-bottom:0.5em;
+    padding:0.5em;
   }
 
   .center {
     text-align:center;
     width: 100%;
+  }
+
+  .container {
+    width:320px;
+    max-width:320px;
+    text-align:center;
   }
