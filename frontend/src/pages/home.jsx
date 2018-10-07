@@ -4,7 +4,7 @@ import logo from '../assets/logo.png'
 import scatter from '../services/scatter'
 import ipfs from '../services/ipfs'
 import Dropzone from 'react-dropzone'
-
+import PhotoModal from './photo'
 
 
 console.log(ipfs)
@@ -19,14 +19,6 @@ class Index extends Component {
   constructor(props) {
     super(props);
     console.log("yolo")
-  }
-
-  onDrop = (af,rf) => {
-    af = af[0]
-    ipfs(af,(err,files) => {
-      console.log('file we got back');
-      console.log(files)
-    })
   }
 
   linkScatter = () => {
@@ -46,15 +38,18 @@ class Index extends Component {
     this.forgetScatter()
   }
 
-  renderScatterButtons() {
+  renderMain() {
     let { account } = this.state
 
     // scatter already linked
     if (account.name)
       return (
         <div>
+          <Card.Header><h1>{account.name}</h1></Card.Header>
+          This is how you currently appear on the EOS network.
+          <div className={'spacer'} />
           <Button onClick={this.forgetScatter}>Unlink</Button>
-          <Button onClick={this.forgetScatter}>Change Photo</Button>
+          <PhotoModal account={account} />
         </div>
       )
 
@@ -62,6 +57,8 @@ class Index extends Component {
     // need to link scatter
     return (
       <div>
+        Link your EOS account to a publicly visible photo.
+        <div className={'spacer'} />
         <Button onClick={this.forgetScatter}>No Account?</Button>
         <Button onClick={this.linkScatter} color='blue'>Link Scatter</Button>
       </div>
@@ -69,21 +66,16 @@ class Index extends Component {
 
   }
 
+  /* <Dropzone onDrop={this.onDrop}>hello</Dropzone> */
   render() {
     let { account } = this.state
     return (
       <div className={'center'}>
         <Card style={{ width: '100%', padding: '1.5em' }} color='blue'>
           <Image src='https://cdn-images-1.medium.com/max/900/1*zkkZqd1_ShN9rRqBG_Wu3A@2x.png' />
-          <Card.Content>
-            <Card.Header><h1>{account.name}</h1></Card.Header>
+          <Card.Content>  
             <Card.Description>
-
-              <Dropzone onDrop={this.onDrop}>hello</Dropzone>
-              This is how you currently appear on the EOS network.
-              <div className={'spacer'} />
-              {this.renderScatterButtons()}
-
+              {this.renderMain()}
             </Card.Description>
           </Card.Content>
           <Card.Content extra>
@@ -92,9 +84,7 @@ class Index extends Component {
               Developer? Integrate <b>accountphoto</b>.
             </a>
           </Card.Content>
-
         </Card>
-
       </div>
     );
   }

@@ -8,8 +8,8 @@ export default (af, ipfsCall) => {
     fileReader.addEventListener("loadend", (e) => {
         var buffer = e.srcElement.result; //arraybuffer object
         ipfs.files.add(bufferFrom(buffer), (err, files) => {
-            // 'files' will be an array of objects containing paths and the multihashes of the files added
-            ipfsCall(err, files)
+            // return err, the first file, and all files.
+            ipfsCall(err, files[0], files)
         })
     });
 }

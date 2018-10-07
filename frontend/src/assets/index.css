@@ -22,6 +22,8 @@ html, body {
     background-size: cover;    
   }
 
+  h1,h2 { padding:0.1em; margin:0.1em; }
+
   .spacer {
     padding:0.5em;
   }
@@ -35,4 +37,12 @@ html, body {
     width:320px;
     max-width:320px;
     text-align:center;
+  }
+
+  .tdropZone {
+    padding:'1em'; 
+    text-align:'center';
+    border:'3px dashed #ddd';
+    height:'200px';
+    vertical-align:'middle';
   }
