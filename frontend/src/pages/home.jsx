@@ -5,7 +5,7 @@ import scatter from '../services/scatter'
 import ipfs from '../services/ipfs'
 import Dropzone from 'react-dropzone'
 import PhotoModal from './photo'
-
+import eos_image from '../assets/eos.png'
 
 console.log(ipfs)
 
@@ -72,7 +72,7 @@ class Index extends Component {
     return (
       <div className={'center'}>
         <Card style={{ width: '100%', padding: '1.5em' }} color='grey'>
-          <Image src='https://cdn-images-1.medium.com/max/900/1*zkkZqd1_ShN9rRqBG_Wu3A@2x.png' />
+          <Image src={eos_image} />
           <Card.Content>  
             <Card.Description>
               {this.renderMain()}
