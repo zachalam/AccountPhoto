@@ -11,6 +11,5 @@ ReactDOM.render(
         <div className={'center'}>  
             <img src={logo} />
         </div>
-        <div className={'spacer'} />
         <Index />
     </div>, document.getElementById('root'));

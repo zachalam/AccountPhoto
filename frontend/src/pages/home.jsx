@@ -57,7 +57,7 @@ class Index extends Component {
     // need to link scatter
     return (
       <div>
-        Link your EOS account to a publicly visible photo.
+        Personalize your EOS account by uploading a publicly visible photo.
         <div className={'spacer'} />
         <Button onClick={this.forgetScatter}>No Account?</Button>
         <Button onClick={this.linkScatter} color='blue'>Link Scatter</Button>
@@ -71,7 +71,7 @@ class Index extends Component {
     let { account } = this.state
     return (
       <div className={'center'}>
-        <Card style={{ width: '100%', padding: '1.5em' }} color='blue'>
+        <Card style={{ width: '100%', padding: '1.5em' }} color='grey'>
           <Image src='https://cdn-images-1.medium.com/max/900/1*zkkZqd1_ShN9rRqBG_Wu3A@2x.png' />
           <Card.Content>  
             <Card.Description>

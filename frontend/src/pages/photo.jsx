@@ -56,7 +56,7 @@ class Photo extends Component {
         return (
             <div>
                 <h2>Confirm Photo</h2>
-                Link photo to the account, <b>{account.name}</b>, on the EOS blockchain.
+                Link photo to your account, <b>{account.name}</b>, on the EOS blockchain.
                 <div className='spacer' />
                 <img src={`https://ipfs.io/ipfs/${this.state.uploadedHash}`} style={{maxWidth:'100%'}}/>
                 <div className='spacer' />
