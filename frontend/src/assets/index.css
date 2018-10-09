@@ -38,11 +38,3 @@ html, body {
     max-width:320px;
     text-align:center;
   }
-
-  .tdropZone {
-    padding:'1em'; 
-    text-align:'center';
-    border:'3px dashed #ddd';
-    height:'200px';
-    vertical-align:'middle';
-  }

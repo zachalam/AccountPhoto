@@ -67,10 +67,19 @@ class Photo extends Component {
 
     // show dropzone.
     return (
-        <Dropzone onDrop={this.onDrop}
-        className='tdropZone'>
-            Drop your photo here, or tap to select.
-        </Dropzone>
+        <div>
+            <h2>Upload Photo</h2>
+            <Dropzone onDrop={this.onDrop}
+            style={{
+                padding:'1em',
+                textAlign:'center',
+                border:'3px dashed #ddd',
+                height:'200px',
+                cursor:'pointer'
+            }}>
+                Drop your photo here, or tap to select.
+            </Dropzone>
+        </div>
     )
 
 
