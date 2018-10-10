@@ -59,7 +59,7 @@ class Index extends Component {
       <div>
         Personalize your EOS account by uploading a publicly visible photo.
         <div className={'spacer'} />
-        <Button onClick={this.forgetScatter}>No Account?</Button>
+        <Button href="https://namevault.co" target="_blank">No Account?</Button>
         <Button onClick={this.linkScatter} color='blue'>Link Scatter</Button>
       </div>
     )

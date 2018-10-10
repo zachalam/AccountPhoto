@@ -11,7 +11,7 @@ namespace Accountphoto {
             Photos(account_name self):contract(self) {}
 
             //@abi action
-            void add(account_name account, uint64_t photo_hash) {
+            void add(account_name account, uint64_t photo_hash, uint64_t photo_type) {
                 // verify account.
                 require_auth(account);
 
@@ -19,6 +19,7 @@ namespace Accountphoto {
                 photos.emplace(account,[&](auto& photo){
                     photo.account_name = account;
                     photo.photo_hash = photo_hash;
+                    photo.photo_type = photo_type;
                 });
             }
 
@@ -36,9 +37,10 @@ namespace Accountphoto {
             struct photo {
                 uint64_t account_name;  // account name
                 uint64_t photo_hash;    // location of photo
+                uint64_t photo_type;    // photo type, ie: 1-jpg
 
                 uint64_t primary_key() const { return account_name; }
-                EOSLIB_SERIALIZE(photo,(account_name)(photo_hash))
+                EOSLIB_SERIALIZE(photo,(account_name)(photo_hash)(photo_type))
             };
 
             typedef multi_index<N(photo), photo> photoIndex;

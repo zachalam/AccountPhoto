@@ -57,7 +57,9 @@ class Photo extends Component {
                 <img src={`https://ipfs.io/ipfs/${this.state.uploadedHash}`} style={{maxWidth:'100%'}}/>
                 <div className='spacer' />
                 <Button color='green' fluid>Link This Photo</Button>
-                <a href="" onClick={this.resetUploadedHash}>I've changed my mind</a>
+                <div className='center'>
+                  <a href="" onClick={this.resetUploadedHash}>I've changed my mind</a>
+                </div>
             </div>
         )
     }
