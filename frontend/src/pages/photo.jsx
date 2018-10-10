@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Modal, Image, Dimmer, Loader, Icon, Button } from 'semantic-ui-react'
+import { Modal, Image, Dimmer, Loader, Icon, Button, Segment } from 'semantic-ui-react'
 import logo from '../assets/logo.png'
 import scatter from '../services/scatter'
 import ipfs from '../services/ipfs'
 import Dropzone from 'react-dropzone'
+import ReactLoading from 'react-loading';
 
 // Index component
 class Photo extends Component {
@@ -26,6 +27,11 @@ class Photo extends Component {
       this.setState({modalOpen:false})
   }
 
+  resetUploadedHash = (e) => {
+    e.preventDefault()
+    this.setState({uploadedHash: ''})
+  }
+
   onDrop = (af,rf) => {
     this.setState({isLoading:true})
     af = af[0]
@@ -39,36 +45,37 @@ class Photo extends Component {
 
 
   whatToRender() {
-    // show: a) dropzone b) loader c) payment
-
-    if(this.state.isLoading) {
-        // show loading bar
-        return (
-          <Dimmer active>
-            <Loader />
-          </Dimmer>
-        )
-    }
-
+    // show: (a) confirmation (b) dropzone / loader
     if(this.state.uploadedHash) {
-        // show payment options.
+        // show (a) confirmation
         let { account} = this.props
         return (
             <div>
                 <h2>Confirm Photo</h2>
-                Link photo to your account, <b>{account.name}</b>, on the EOS blockchain.
+                Please verify that you'd like the following photo linked to the account: <b>{account.name}</b>.
                 <div className='spacer' />
                 <img src={`https://ipfs.io/ipfs/${this.state.uploadedHash}`} style={{maxWidth:'100%'}}/>
                 <div className='spacer' />
                 <Button color='green' fluid>Link This Photo</Button>
+                <a href="" onClick={this.resetUploadedHash}>I've changed my mind</a>
             </div>
         )
     }
 
-    // show dropzone.
+    // -----------------------
+
+    // show (b) dropzone.
     return (
         <div>
             <h2>Upload Photo</h2>
+            Choose a photo that you'd like to be linked to your account on the EOS blockchain.
+            <div className='spacer' />
+
+            { this.state.isLoading ? 
+              <div className='center'>
+                <ReactLoading className={'center'} type={'cubes'} color={'#999999'} height={'150px'} width={'150px'} />
+              </div>
+            :
             <Dropzone onDrop={this.onDrop}
             style={{
                 padding:'1em',
@@ -78,7 +85,8 @@ class Photo extends Component {
                 cursor:'pointer'
             }}>
                 Drop your photo here, or tap to select.
-            </Dropzone>
+            </Dropzone> }
+
         </div>
     )
 

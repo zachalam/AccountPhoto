@@ -11,6 +11,7 @@
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "react-dropzone": "^6.0.2",
+    "react-loading": "^2.0.3",
     "react-scripts": "^1.1.5",
     "scatter-js": "^2.5.2",
     "semantic-ui-css": "^2.4.0",
