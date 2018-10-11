@@ -37,7 +37,7 @@ namespace Accountphoto {
             struct photo {
                 uint64_t account_name;  // account name
                 uint64_t photo_hash;    // location of photo
-                uint64_t photo_type;    // photo type, ie: 1-jpg
+                uint64_t photo_type;    // photo type, ie: 1-jpg, 2-jpeg, 3-png
 
                 uint64_t primary_key() const { return account_name; }
                 EOSLIB_SERIALIZE(photo,(account_name)(photo_hash)(photo_type))
