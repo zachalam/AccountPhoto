@@ -12,7 +12,7 @@
     "react-dom": "^16.4.2",
     "react-dropzone": "^6.0.2",
     "react-loading": "^2.0.3",
-    "react-scripts": "^1.1.5",
+    "react-scripts": "2.0.4",
     "scatter-js": "^2.5.2",
     "semantic-ui-css": "^2.4.0",
     "semantic-ui-react": "^0.82.5"
@@ -21,6 +21,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  },
+  "devDependencies": {
+    "gh-pages": "^2.0.1"
   }
 }

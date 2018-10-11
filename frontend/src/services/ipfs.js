@@ -1,4 +1,4 @@
-const ipfsAPI = require('ipfs-api')
+const ipfsAPI = require('ipfs-api/dist/index.min.js')
 const bufferFrom = require('buffer-from')
 const ipfs = ipfsAPI('ipfs.infura.io', '5001', { protocol: 'https' })
 const fileReader = new FileReader();
