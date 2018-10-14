@@ -13,7 +13,9 @@ console.log(ipfs)
 class Index extends Component {
 
   state = {
-    account: {}
+    account: {},
+    eos: '',
+    transactionOptions: ''
   }
 
   constructor(props) {
@@ -25,7 +27,7 @@ class Index extends Component {
     scatter.connect((eos, account, transactionOptions) => {
       console.log("account is")
       console.log(account)
-      this.setState({ account })
+      this.setState({ eos, account, transactionOptions })
     });
   }
 
@@ -39,7 +41,7 @@ class Index extends Component {
   }
 
   renderMain() {
-    let { account } = this.state
+    let { account, eos, transactionOptions } = this.state
 
     // scatter already linked
     if (account.name)
@@ -49,7 +51,11 @@ class Index extends Component {
           This is how you currently appear on the EOS network.
           <div className={'spacer'} />
           <Button onClick={this.forgetScatter}>Unlink</Button>
-          <PhotoModal account={account} />
+          <PhotoModal 
+            account={account} 
+            eos={eos} 
+            transactionOptions={transactionOptions} 
+          />
         </div>
       )
 
