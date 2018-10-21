@@ -1,1 +1,1 @@
-![AccountPhoto logo](https://raw.githubusercontent.com/zachalam/AccountPhoto/master/frontend/public/ap-banner.png)
+![AccountPhoto Screenshot](https://raw.githubusercontent.com/zachalam/AccountPhoto/master/frontend/public/ap-screen.png)
