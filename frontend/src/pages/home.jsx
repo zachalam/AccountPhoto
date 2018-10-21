@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Card, Image, Icon, Button } from 'semantic-ui-react'
-import logo from '../assets/logo.png'
 import scatter from '../services/scatter'
 import ipfs from '../services/ipfs'
-import Dropzone from 'react-dropzone'
-import PhotoModal from './photo'
+import ipfsUrl from '../services/ipfsUrl'
+import PhotoModal from './photoModal'
 import eos_image from '../assets/eos.png'
+import config from "../config/default";
 
 console.log(ipfs)
 
@@ -15,24 +15,33 @@ class Index extends Component {
   state = {
     account: {},
     eos: '',
-    authorization: ''
+    authorization: '',
+    contract: '',
+    photo: ipfsUrl(),
   }
 
   constructor(props) {
     super(props);
-    console.log("yolo")
+    this.setPhoto = this.setPhoto.bind(this)
   }
 
   linkScatter = () => {
     scatter.connect((eos, account, authorization) => {
-      console.log("auth is")
-      console.log(authorization)
+      // save scatter helpers
       this.setState({ eos, account, authorization })
+      // also get/save contract.
+      eos.contract(config.network.contract)
+      .then((contract) => { 
+        this.setState({contract},() => {
+          this.setPhoto()
+        }) 
+        
+      });
     });
   }
 
   forgetScatter = () => {
-    this.setState({ account: {} })
+    this.setState({ account: {}, eos: '', authorization: '', contract: '', photo: ipfsUrl() })
     scatter.forget()
   }
 
@@ -40,11 +49,32 @@ class Index extends Component {
     this.forgetScatter()
   }
 
+  setPhoto = (hash) => {
+    // get photo from ipfs
+    let { eos, account } = this.state
+    let { network } = config
+
+    if(hash) {
+      // hash provided just use that one.
+      this.setState({photo: ipfsUrl(hash)})
+    } else {
+      // check eos network for profile hash.
+      eos.getTableRows(true, network.contract, network.contract, 'photo', account.name)
+          .then((res) => {
+            let photo = res.rows[0]
+            console.log(photo)
+            // load in hash from ipfs
+            this.setState({photo: ipfsUrl(photo.photo_hash)})
+          });
+    }
+
+  }
+
   renderMain() {
-    let { account, eos, authorization } = this.state
+    let { account, eos, authorization, contract } = this.state
 
     // scatter already linked
-    if (account.name)
+    if (contract)
       return (
         <div>
           <Card.Header><h1>{account.name}</h1></Card.Header>
@@ -55,6 +85,8 @@ class Index extends Component {
             account={account} 
             eos={eos} 
             authorization={authorization} 
+            contract={contract}
+            setPhoto={this.setPhoto}
           />
         </div>
       )
@@ -74,11 +106,11 @@ class Index extends Component {
 
   /* <Dropzone onDrop={this.onDrop}>hello</Dropzone> */
   render() {
-    let { account } = this.state
+    let { account, photo } = this.state
     return (
       <div className={'center'}>
         <Card style={{ width: '100%', padding: '1.5em' }} color='grey'>
-          <Image src={eos_image} />
+          <Image src={photo} />
           <Card.Content>  
             <Card.Description>
               {this.renderMain()}

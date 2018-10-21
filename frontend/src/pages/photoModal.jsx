@@ -27,7 +27,7 @@ class Photo extends Component {
   }
 
   resetUploadedHash = (e) => {
-    e.preventDefault()
+    if(e) e.preventDefault()    // prevent default event (if provided)
     this.setState({ uploadedHash: '' })
   }
 
@@ -45,39 +45,26 @@ class Photo extends Component {
   }
 
   confirmPhoto = () => {
-    console.log("confirmed")
-    let { eos, account, authorization } = this.props
+    let { eos, account, authorization, contract } = this.props
     let { uploadedHash } = this.state // ipfs hash of photo..
-    console.log(eos)
-    console.log(account)
 
-    console.log("????")
-    console.log(authorization)
-
-    eos
-    .contract(config.network.contract)
-    .then((contract) => {
-
-      contract.set({
-        account: account.name,
-        photo_hash: uploadedHash
-      },{authorization}).then((res) => {
-
-        if(res.broadcast === true) {
-          // successful broadcast
-          console.log("good bcast")
-          // reset hash, close modal, and show toast.
-          this.resetUploadedHash();
-          this.closeModal();
-          
-
-        } else {
-          // something went wrong.
-          console.log("bad bcast")
-        }
-      })
-
+    contract.set({
+      account: account.name,
+      photo_hash: uploadedHash
+    },{authorization}).then((res) => {
+      if(res.broadcast === true) {
+        // successful broadcast
+        console.log("good bcast")
+        // reset hash, close modal, and show toast.
+        this.resetUploadedHash();
+        this.closeModal();
+        this.props.setPhoto(uploadedHash);   // set photo from props.
+      } else {
+        // something went wrong.
+        console.log("bad bcast")
+      }
     })
+
   }
 
   whatToRender() {
@@ -114,7 +101,9 @@ class Photo extends Component {
             <ReactLoading className={'center'} type={'cubes'} color={'#999999'} height={'150px'} width={'150px'} />
           </div>
           :
-          <Dropzone onDrop={this.onDrop}
+          <Dropzone 
+            onDrop={this.onDrop}
+            accept="image/jpeg, image/jpg, image/png"
             style={{
               padding: '1em',
               textAlign: 'center',
