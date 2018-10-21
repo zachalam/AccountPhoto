@@ -41,9 +41,7 @@ export default {
           // ----------------------------
 
           // Never assume the account's permission/authority. Always take it from the returned account.
-          const transactionOptions = {
-            authorization: [`${account.name}@${account.authority}`]
-          };
+          const authorization = [`${account.name}@${account.authority}`];
 
           /*
                 eos.transfer(account.name, 'helloworld', '1.0000 EOS', 'memo', transactionOptions).then(trx => {
@@ -53,7 +51,7 @@ export default {
                     console.error(error);
                 });
                 */
-          transactionCall(eos, account, transactionOptions);
+          transactionCall(eos, account, authorization);
         })
         .catch(error => {
           // The user rejected this request, or doesn't have the appropriate requirements.

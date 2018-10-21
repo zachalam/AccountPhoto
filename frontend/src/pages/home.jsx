@@ -15,7 +15,7 @@ class Index extends Component {
   state = {
     account: {},
     eos: '',
-    transactionOptions: ''
+    authorization: ''
   }
 
   constructor(props) {
@@ -24,10 +24,10 @@ class Index extends Component {
   }
 
   linkScatter = () => {
-    scatter.connect((eos, account, transactionOptions) => {
-      console.log("account is")
-      console.log(account)
-      this.setState({ eos, account, transactionOptions })
+    scatter.connect((eos, account, authorization) => {
+      console.log("auth is")
+      console.log(authorization)
+      this.setState({ eos, account, authorization })
     });
   }
 
@@ -41,7 +41,7 @@ class Index extends Component {
   }
 
   renderMain() {
-    let { account, eos, transactionOptions } = this.state
+    let { account, eos, authorization } = this.state
 
     // scatter already linked
     if (account.name)
@@ -54,7 +54,7 @@ class Index extends Component {
           <PhotoModal 
             account={account} 
             eos={eos} 
-            transactionOptions={transactionOptions} 
+            authorization={authorization} 
           />
         </div>
       )

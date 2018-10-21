@@ -19,15 +19,28 @@ namespace Accountphoto {
             }
 
             //@abi action
-            void add(account_name account, uint64_t photo_hash) {
+            void set(account_name account, string photo_hash) {
                 // verify account.
                 require_auth(account);
-
                 photoIndex photos(_self,_self);
-                photos.emplace(account,[&](auto& photo){
-                    photo.account_name = account;
-                    photo.photo_hash = photo_hash;
-                });
+
+                // check to see if a photo already exists.
+                auto iterator = photos.find(account);
+
+                if(iterator != photos.end()) {
+                    // update existing photo.
+                    photos.modify(iterator,account,[&](auto& photo){
+                        photo.photo_hash = photo_hash;
+                    });
+
+                } else {
+                    // add photo for the first time
+                    photos.emplace(account,[&](auto& photo){
+                        photo.account_name = account;
+                        photo.photo_hash = photo_hash;
+                    });
+                }
+
             }
 
             //@abi action
@@ -43,7 +56,7 @@ namespace Accountphoto {
             //@abi table photo i64
             struct photo {
                 uint64_t account_name;  // account name
-                uint64_t photo_hash;    // location of photo
+                string photo_hash;    // location of photo
 
                 uint64_t primary_key() const { return account_name; }
                 EOSLIB_SERIALIZE(photo,(account_name)(photo_hash))
@@ -52,5 +65,5 @@ namespace Accountphoto {
             typedef multi_index<N(photo), photo> photoIndex;
     };
 
-    EOSIO_ABI(Photos,(add)(get))
+    EOSIO_ABI(Photos,(set)(get))
 }

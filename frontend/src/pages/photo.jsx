@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { Modal, Image, Dimmer, Loader, Icon, Button, Segment } from 'semantic-ui-react'
-import logo from '../assets/logo.png'
-import scatter from '../services/scatter'
+import { Modal, Button } from 'semantic-ui-react'
 import ipfs from '../services/ipfs'
 import Dropzone from 'react-dropzone'
 import ReactLoading from 'react-loading';
+import config from "../config/default";
 
 // Index component
 class Photo extends Component {
@@ -47,10 +46,38 @@ class Photo extends Component {
 
   confirmPhoto = () => {
     console.log("confirmed")
-    let { eos, account, transactionOptions } = this.props
+    let { eos, account, authorization } = this.props
     let { uploadedHash } = this.state // ipfs hash of photo..
     console.log(eos)
     console.log(account)
+
+    console.log("????")
+    console.log(authorization)
+
+    eos
+    .contract(config.network.contract)
+    .then((contract) => {
+
+      contract.set({
+        account: account.name,
+        photo_hash: uploadedHash
+      },{authorization}).then((res) => {
+
+        if(res.broadcast === true) {
+          // successful broadcast
+          console.log("good bcast")
+          // reset hash, close modal, and show toast.
+          this.resetUploadedHash();
+          this.closeModal();
+          
+
+        } else {
+          // something went wrong.
+          console.log("bad bcast")
+        }
+      })
+
+    })
   }
 
   whatToRender() {
