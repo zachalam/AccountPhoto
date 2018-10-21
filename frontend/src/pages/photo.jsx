@@ -48,6 +48,7 @@ class Photo extends Component {
   confirmPhoto = () => {
     console.log("confirmed")
     let { eos, account, transactionOptions } = this.props
+    let { uploadedHash } = this.state // ipfs hash of photo..
     console.log(eos)
     console.log(account)
   }

@@ -1,4 +1,6 @@
-#include <accountphoto.hpp>
+#include <eosiolib/eosio.hpp>
+#include <eosiolib/print.hpp>
+#include <string>
 
 namespace Accountphoto {
     using namespace eosio;
@@ -13,7 +15,7 @@ namespace Accountphoto {
             //@abi action
             void hello() {
                 // index; hello world message.
-                print("Hello from accountphoto!")
+                print("Hello from accountphoto!");
             }
 
             //@abi action

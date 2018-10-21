@@ -1,0 +1,24 @@
+{
+  "name": "accountphoto",
+  "version": "1.0.0",
+  "description": "![AccountPhoto logo](https://raw.githubusercontent.com/zachalam/AccountPhoto/master/frontend/public/ap-banner.png)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "predeploy": "cd frontend && npm run build",
+    "deploy": "gh-pages -d frontend/build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zachalam/AccountPhoto.git"
+  },
+  "author": "Zach Alam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zachalam/AccountPhoto/issues"
+  },
+  "homepage": "https://github.com/zachalam/AccountPhoto#readme",
+  "devDependencies": {
+    "gh-pages": "^2.0.1"
+  }
+}
