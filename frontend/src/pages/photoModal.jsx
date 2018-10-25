@@ -3,7 +3,6 @@ import { Modal, Button } from 'semantic-ui-react'
 import ipfs from '../services/ipfs'
 import Dropzone from 'react-dropzone'
 import ReactLoading from 'react-loading';
-import config from "../config/default";
 
 // Index component
 class Photo extends Component {
@@ -12,10 +11,6 @@ class Photo extends Component {
     modalOpen: false,
     isLoading: false,
     uploadedHash: ''    // ipfs hash
-  }
-
-  constructor(props) {
-    super(props);
   }
 
   launchModal = () => {
@@ -45,7 +40,7 @@ class Photo extends Component {
   }
 
   confirmPhoto = () => {
-    let { eos, account, authorization, contract } = this.props
+    let { account, authorization, contract } = this.props
     let { uploadedHash } = this.state // ipfs hash of photo..
 
     contract.set({
@@ -77,7 +72,7 @@ class Photo extends Component {
           <h2>Confirm Photo</h2>
           Please verify that you'd like the following photo linked to the account: <b>{account.name}</b>.
                 <div className='spacer' />
-          <img src={`https://ipfs.io/ipfs/${this.state.uploadedHash}`} style={{ maxWidth: '100%' }} />
+          <img src={`https://ipfs.io/ipfs/${this.state.uploadedHash}`} alt={`your upload`} style={{ maxWidth: '100%' }} />
           <div className='spacer' />
           <Button color='green' onClick={this.confirmPhoto} fluid>Link This Photo</Button>
           <div className='center'>

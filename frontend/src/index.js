@@ -9,7 +9,7 @@ import './assets/index.css';
 ReactDOM.render(
     <div className={'container'}>
         <div className={'center'}>  
-            <img src={logo} />
+            <img src={logo} alt={`accountphoto logo`} />
         </div>
         <Index />
     </div>, document.getElementById('root'));

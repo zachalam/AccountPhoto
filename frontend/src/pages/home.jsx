@@ -4,7 +4,6 @@ import scatter from '../services/scatter'
 import ipfs from '../services/ipfs'
 import ipfsUrl from '../services/ipfsUrl'
 import PhotoModal from './photoModal'
-import eos_image from '../assets/eos.png'
 import config from "../config/default";
 
 console.log(ipfs)
@@ -106,7 +105,7 @@ class Index extends Component {
 
   /* <Dropzone onDrop={this.onDrop}>hello</Dropzone> */
   render() {
-    let { account, photo } = this.state
+    let { photo } = this.state
     return (
       <div className={'center'}>
         <Card style={{ width: '100%', padding: '1.5em' }} color='grey'>
