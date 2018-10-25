@@ -10,6 +10,7 @@
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "react-dropzone": "^6.0.2",
+    "react-image-crop": "^6.0.1",
     "react-loading": "^2.0.3",
     "react-scripts": "^1.1.5",
     "scatterjs-core": "^2.3.2",

@@ -4,13 +4,17 @@ import ipfs from '../services/ipfs'
 import Dropzone from 'react-dropzone'
 import ReactLoading from 'react-loading';
 
+// photo cropping tool...
+import PhotoCropper from './photoCropper'
+
 // Index component
 class Photo extends Component {
 
   state = {
     modalOpen: false,
     isLoading: false,
-    uploadedHash: ''    // ipfs hash
+    uploadedHash: '',    // ipfs hash
+    src: '',  // uploaded photo src for cropping.
   }
 
   launchModal = () => {
@@ -27,8 +31,10 @@ class Photo extends Component {
   }
 
   onDrop = (af, rf) => {
-    this.setState({ isLoading: true })
+    this.setState({ isLoading: true, src: af[0] })
     af = af[0]
+
+    /* TODO, add ipfs upload of cropped photo.
     ipfs(af, (err, file) => {
       console.log('file we got back');
       console.log(file)
@@ -36,7 +42,7 @@ class Photo extends Component {
         uploadedHash: file.hash,
         isLoading: false
       })
-    })
+    })*/
   }
 
   confirmPhoto = () => {
@@ -64,15 +70,15 @@ class Photo extends Component {
 
   whatToRender() {
     // show: (a) confirmation (b) dropzone / loader
-    if (this.state.uploadedHash) {
+    if (this.state.src) {
       // show (a) confirmation
       let { account } = this.props
       return (
         <div>
           <h2>Confirm Photo</h2>
           Please verify that you'd like the following photo linked to the account: <b>{account.name}</b>.
-                <div className='spacer' />
-          <img src={`https://ipfs.io/ipfs/${this.state.uploadedHash}`} alt={`your upload`} style={{ maxWidth: '100%' }} />
+          <div className='spacer' />
+          <PhotoCropper src={this.state.src} />
           <div className='spacer' />
           <Button color='green' onClick={this.confirmPhoto} fluid>Link This Photo</Button>
           <div className='center'>
@@ -87,28 +93,7 @@ class Photo extends Component {
     // show (b) dropzone.
     return (
       <div>
-        <h2>Upload Photo</h2>
-        Choose a photo that you'd like to be linked to your account on the EOS blockchain.
-            <div className='spacer' />
-
-        {this.state.isLoading ?
-          <div className='center'>
-            <ReactLoading className={'center'} type={'cubes'} color={'#999999'} height={'150px'} width={'150px'} />
-          </div>
-          :
-          <Dropzone 
-            onDrop={this.onDrop}
-            accept="image/jpeg, image/jpg, image/png"
-            style={{
-              padding: '1em',
-              textAlign: 'center',
-              border: '3px dashed #ddd',
-              height: '200px',
-              cursor: 'pointer'
-            }}>
-            Drop your photo here, or tap to select.
-            </Dropzone>}
-
+        <PhotoCropper />
       </div>
     )
 
