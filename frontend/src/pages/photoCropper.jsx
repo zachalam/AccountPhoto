@@ -121,12 +121,12 @@ class PhotoCropper extends Component {
                 onClick={this.finalizePhoto} 
                 disabled={!this.state.crop.width} 
                 fluid
-            >Link Photo to {this.props.account.name}</Button>
-            <div className='center'>
-            <a href="">I've changed my mind</a>
-            </div>
+            >Crop + link to {this.props.account.name}.</Button>
         </div>
         )}
+        <div className='center spacer'>
+            <a href="" onClick={this.props.closeModal}>I've changed my mind</a>
+        </div>
       </div>
     );
   }

@@ -27,7 +27,8 @@ class Photo extends Component {
     this.setState({ modalOpen: true })
   }
 
-  closeModal = () => {
+  closeModal = (e) => {
+    if(e) e.preventDefault()
     this.setState({ modalOpen: false })
   }
 
@@ -98,7 +99,11 @@ class Photo extends Component {
     </div>)
 
     // image upload + crop
-    return (<PhotoCropper finalizePhoto={this.finalizePhoto} account={account} />)
+    return (<PhotoCropper 
+      finalizePhoto={this.finalizePhoto} 
+      closeModal={this.closeModal}
+      account={account} 
+      />)
   }
 
   render() {
