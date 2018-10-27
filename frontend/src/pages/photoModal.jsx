@@ -83,21 +83,28 @@ class Photo extends Component {
     // loading bar
     // confirmation screen (for scatter)
     // image uploader/cropper
-    if(isLoading) return (<div>storing on ipfs..</div>)
 
+    // loader
+    if(isLoading) return (<div><h3>Storing on IPFS..</h3>
+    This may take a moment, we're currently adding your photo to multiple IPFS nodes.
+    <ReactLoading className={'center'} type={'cubes'} color={'#999999'} height={'150px'} width={'150px'} />
+    </div>)
+
+    // confirmation
     if(uploadedHash) return (<div><h3>Confirm with Scatter</h3>
     We've opened scatter for you, please confirm your new photo.
     <br /><br />
     <Button onClick={this.confirmPhoto} color='blue'>Re-Launch Scatter</Button>
     </div>)
 
+    // image upload + crop
     return (<PhotoCropper finalizePhoto={this.finalizePhoto} account={account} />)
   }
 
   render() {
     return (
       <span>
-        <Modal size={'mini'} open={this.state.modalOpen} onClose={this.closeModal}>
+        <Modal size={'mini'} open={this.state.modalOpen} onClose={this.closeModal} closeOnDimmerClick={false}>
           <Modal.Content>
             <div>
               {this.whatToRender()}
