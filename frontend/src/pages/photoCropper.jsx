@@ -1,24 +1,34 @@
 import React, { Component } from 'react';
 import ReactCrop, { makeAspectCrop } from "react-image-crop";
 import Dropzone from 'react-dropzone'
+import { Button } from 'semantic-ui-react'
+import ipfs from '../services/ipfs'
 
 import "react-image-crop/dist/ReactCrop.css";
 
 
 class PhotoCropper extends Component {
   state = {
-    src: this.props.src,
+    src: '',
+    finalImage: '',
     crop: {
       x: 10,
       y: 10,
       aspect: 1,
       width: 20,
-      height: 20
     }
   };
 
-  onSelectFile = e => {
-    e = e[0] // grab + save first image..    
+  finalizePhoto = () => {
+    // call parent finalizePhoto method.
+    console.log("finalImage")
+    console.log(this.state.finalImage)
+    console.log(typeof this.state.finalImage)
+    this.props.finalizePhoto(this.state.finalImage)
+  }
+
+  onSelectFile = (e) => {
+    e = e[0] // grab + save first image..  
     this.setState({src: e.preview})
   };
 
@@ -48,6 +58,9 @@ class PhotoCropper extends Component {
   };
 
   getCroppedImg(image, pixelCrop, fileName) {
+    // don't crop image, unless it's available.
+    if(!image) return
+
     const canvas = document.createElement("canvas");
     canvas.width = pixelCrop.width;
     canvas.height = pixelCrop.height;
@@ -81,7 +94,7 @@ class PhotoCropper extends Component {
     return (
       <div>
         <div>
-          {!this.state.src ? <Dropzone 
+          {!this.state.src && (<Dropzone 
             onDrop={this.onSelectFile}
             accept="image/jpeg, image/jpg, image/png"
             style={{
@@ -92,9 +105,10 @@ class PhotoCropper extends Component {
               cursor: 'pointer'
             }}>
             Drop your photo here, or tap to select.
-          </Dropzone> : null}
+          </Dropzone>)}
         </div>
         {this.state.src && (
+        <div>
           <ReactCrop
             src={this.state.src}
             crop={this.state.crop}
@@ -102,6 +116,16 @@ class PhotoCropper extends Component {
             onComplete={this.onCropComplete}
             onChange={this.onCropChange}
           />
+            <Button 
+                color='green' 
+                onClick={this.finalizePhoto} 
+                disabled={!this.state.crop.width} 
+                fluid
+            >Link Photo to {this.props.account.name}</Button>
+            <div className='center'>
+            <a href="">I've changed my mind</a>
+            </div>
+        </div>
         )}
       </div>
     );
@@ -109,4 +133,3 @@ class PhotoCropper extends Component {
 }
 
 export default PhotoCropper;
-

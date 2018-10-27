@@ -7,6 +7,7 @@
     "buffer-from": "^1.1.1",
     "config": "^2.0.1",
     "eosjs": "16.0.7",
+    "image-to-base64": "^2.0.1",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "react-dropzone": "^6.0.2",

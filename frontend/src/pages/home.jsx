@@ -6,8 +6,6 @@ import ipfsUrl from '../services/ipfsUrl'
 import PhotoModal from './photoModal'
 import config from "../config/default";
 
-console.log(ipfs)
-
 // Index component
 class Index extends Component {
 
