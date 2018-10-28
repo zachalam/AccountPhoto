@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Card, Image, Icon, Button } from 'semantic-ui-react'
 import scatter from '../services/scatter'
-import ipfs from '../services/ipfs'
 import ipfsUrl from '../services/ipfsUrl'
 import PhotoModal from './photoModal'
 import config from "../config/default";
@@ -114,9 +113,9 @@ class Index extends Component {
             </Card.Description>
           </Card.Content>
           <Card.Content extra>
-            <a>
+            <a href="https://github.com/zachalam/AccountPhoto#developer-integration" rel="noopener noreferrer" target="_blank">
               <Icon name='user' />
-              Developer? Integrate <b>accountphoto</b>.
+              Developer? Integrate AccountPhoto.
             </a>
           </Card.Content>
         </Card>

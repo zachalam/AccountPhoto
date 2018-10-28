@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import ReactCrop, { makeAspectCrop } from "react-image-crop";
+import ReactCrop from "react-image-crop";
 import Dropzone from 'react-dropzone'
 import { Button } from 'semantic-ui-react'
-import ipfs from '../services/ipfs'
 
 import "react-image-crop/dist/ReactCrop.css";
 
@@ -21,9 +20,6 @@ class PhotoCropper extends Component {
 
   finalizePhoto = () => {
     // call parent finalizePhoto method.
-    console.log("finalImage")
-    console.log(this.state.finalImage)
-    console.log(typeof this.state.finalImage)
     this.props.finalizePhoto(this.state.finalImage)
   }
 

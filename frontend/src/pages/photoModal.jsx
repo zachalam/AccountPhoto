@@ -78,7 +78,7 @@ class Photo extends Component {
   }
 
   whatToRender = () => {
-    let { isLoading, uploadedHash, photo } = this.state
+    let { isLoading, uploadedHash } = this.state
     let { account } = this.props
     // render one of the following:
     // loading bar
@@ -105,7 +105,7 @@ class Photo extends Component {
         We've opened scatter for you, please confirm your photo.
         <br /><br />
         <Button onClick={this.confirmPhoto} color='green' fluid>Re-Launch Scatter</Button>
-        <img src={ipfsUrl(uploadedHash)} style={{display:'none'}} /> 
+        <img src={ipfsUrl(uploadedHash)} alt={'pre-cache user'} style={{display:'none'}} /> 
         </div>)
 
 
