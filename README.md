@@ -10,6 +10,6 @@ eos.getTableRows(true, 'accountphoto', 'accountphoto', 'photo', ACCOUNT_NAME)
    .then((res) => {
       let photo = res.rows[0]
       // you can save and/or display the photo, by reading "photo_hash"
-      // ie: https://cloudflare-ipfs.com/ipfs/${photo.photo_hash}
+      // ie: https://ipfs.io/ipfs/${photo.photo_hash}
     });
 ```
