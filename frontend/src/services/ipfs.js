@@ -2,7 +2,6 @@ import config from "../config/default";
 const bufferFrom = require('buffer-from')
 
 const ipfs = window.IpfsApi(config.ipfs.host, config.ipfs.port, { protocol: 'https' })
-//const ipfs = window.IpfsApi("ipfs.jes.xxx", 5001, { protocol: 'https' })
 const fileReader = new FileReader();
 
 export default (af, ipfsCall) => {
