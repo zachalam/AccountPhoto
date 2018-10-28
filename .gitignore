@@ -7,11 +7,6 @@ node_modules/
 # production
 frontend/build
 
-#compile contract files
-**/*.abi
-**/*.wasm
-**/*.wast
-
 #blockchain data
 **/data/*
 
