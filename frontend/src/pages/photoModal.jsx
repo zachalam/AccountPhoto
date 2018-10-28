@@ -39,10 +39,16 @@ class Photo extends Component {
     this.setState({ isLoading: true })
     
     ipfs(photo, (err, file) => {
-      this.setState({
-        uploadedHash: file.hash,
-        isLoading: false
-      })
+      // only update hash once.
+      console.log("calling........")
+      if(!this.state.uploadedHash && this.state.modalOpen)
+        this.setState({
+          uploadedHash: file.hash,
+          isLoading: false
+        },() => {
+          // confim photo (with scatter)
+          this.confirmPhoto()
+        })
     })
 
   }

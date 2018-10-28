@@ -9,10 +9,6 @@ export default (af, ipfsCall) => {
     fileReader.readAsArrayBuffer(af)
     fileReader.addEventListener("loadend", (e) => {
 
-        console.log("eeeeeee")
-        console.log(e)
-
-        
         var buffer = e.srcElement.result; //arraybuffer object
         ipfs.files.add(bufferFrom(buffer), (err, files) => {
             // return err, the first file, and all files.
