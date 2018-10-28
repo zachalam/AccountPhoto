@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, Button } from 'semantic-ui-react'
+import { Modal, Button, Label } from 'semantic-ui-react'
 import ipfs from '../services/ipfs'
 import ipfsUrl from '../services/ipfsUrl'
 import { CircleLoader } from 'react-spinners';
@@ -14,6 +14,7 @@ class Photo extends Component {
     modalOpen: false,
     isLoading: false,
     uploadedHash: '',    // ipfs hash
+    failResources: false
   }
 
   constructor(props) {
@@ -61,6 +62,9 @@ class Photo extends Component {
       account: account.name,
       photo_hash: uploadedHash
     },{authorization}).then((res) => {
+      console.log("res is")
+      console.log(res)
+
       if(res.broadcast === true) {
         // successful broadcast
         console.log("good bcast")
@@ -74,11 +78,15 @@ class Photo extends Component {
         alert("Unable to contact the EOS network, please try again later.")
       }
     })
+    .catch((e) => {
+      // not enough resources
+      this.setState({failResources: true})
+    })
 
   }
 
   whatToRender = () => {
-    let { isLoading, uploadedHash } = this.state
+    let { isLoading, uploadedHash, failResources } = this.state
     let { account } = this.props
     // render one of the following:
     // loading bar
@@ -86,6 +94,7 @@ class Photo extends Component {
     // image uploader/cropper
 
     // loader
+    
     if(isLoading) return (<div><h2>Storing on IPFS...</h2>
     This may take a moment, we're currently adding your photo to multiple IPFS nodes.
       <br /><br /><br />
@@ -104,6 +113,14 @@ class Photo extends Component {
     if(uploadedHash) return (<div><h2>Confirm with Scatter</h2>
         We've opened scatter for you, please confirm your photo.
         <br /><br />
+        {failResources && <div>
+          <Label basic color='red' pointing='below'>
+          CANNOT SET PHOTO!
+          Your account does not have enough <a href="https://www.myeoskit.com/tools/bandwidth/stake" target="_blank">CPU or RAM</a> to complete this action.
+          </Label>
+  
+          <br /><br />
+        </div>}
         <Button onClick={this.confirmPhoto} color='green' fluid>Re-Launch Scatter</Button>
         <img src={ipfsUrl(uploadedHash)} alt={'pre-cache user'} style={{display:'none'}} /> 
         </div>)
