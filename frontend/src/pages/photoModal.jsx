@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { Modal, Button } from 'semantic-ui-react'
 import ipfs from '../services/ipfs'
 import ipfsUrl from '../services/ipfsUrl'
-import Dropzone from 'react-dropzone'
-import ReactLoading from 'react-loading';
+import { CircleLoader } from 'react-spinners';
 
 // photo cropping tool...
 import PhotoCropper from './photoCropper'
@@ -15,7 +14,6 @@ class Photo extends Component {
     modalOpen: false,
     isLoading: false,
     uploadedHash: '',    // ipfs hash
-    src: '',  // uploaded photo src for cropping.
   }
 
   constructor(props) {
@@ -29,7 +27,7 @@ class Photo extends Component {
 
   closeModal = (e) => {
     if(e) e.preventDefault()
-    this.setState({ modalOpen: false })
+    this.setState({ modalOpen: false, uploadedHash: '' })
   }
 
   resetUploadedHash = (e) => {
@@ -37,20 +35,16 @@ class Photo extends Component {
     this.setState({ uploadedHash: '' })
   }
 
-  finalizePhoto = (af) => {
+  finalizePhoto = (photo) => {
     this.setState({ isLoading: true })
-
-    ipfs(af, (err, file) => {
-      console.log('file we got back');
-      console.log(file)
+    
+    ipfs(photo, (err, file) => {
       this.setState({
         uploadedHash: file.hash,
         isLoading: false
-      },() => {
-        // confirm on contract
-        this.confirmPhoto()
       })
     })
+
   }
 
   confirmPhoto = () => {
@@ -78,7 +72,7 @@ class Photo extends Component {
   }
 
   whatToRender = () => {
-    let { isLoading, uploadedHash } = this.state
+    let { isLoading, uploadedHash, photo } = this.state
     let { account } = this.props
     // render one of the following:
     // loading bar
@@ -86,17 +80,28 @@ class Photo extends Component {
     // image uploader/cropper
 
     // loader
-    if(isLoading) return (<div><h3>Storing on IPFS..</h3>
+    if(isLoading) return (<div><h2>Storing on IPFS...</h2>
     This may take a moment, we're currently adding your photo to multiple IPFS nodes.
-    <ReactLoading className={'center'} type={'cubes'} color={'#999999'} height={'150px'} width={'150px'} />
+      <br /><br /><br />
+      <center>
+      <CircleLoader
+          sizeUnit={"px"}
+          size={150}
+          color={'#024359'}
+          loading={true}
+      />
+      </center>
+      <div className={'spacer'} />
     </div>)
 
     // confirmation
-    if(uploadedHash) return (<div><h3>Confirm with Scatter</h3>
-    We've opened scatter for you, please confirm your new photo.
-    <br /><br />
-    <Button onClick={this.confirmPhoto} color='blue'>Re-Launch Scatter</Button>
-    </div>)
+    if(uploadedHash) return (<div><h2>Confirm with Scatter</h2>
+        We've opened scatter for you, please confirm your photo.
+        <br /><br />
+        <Button onClick={this.confirmPhoto} color='green' fluid>Re-Launch Scatter</Button>
+        <img src={ipfsUrl(uploadedHash)} style={{display:'none'}} /> 
+        </div>)
+
 
     // image upload + crop
     return (<PhotoCropper 
@@ -109,11 +114,17 @@ class Photo extends Component {
   render() {
     return (
       <span>
-        <Modal size={'mini'} open={this.state.modalOpen} onClose={this.closeModal} closeOnDimmerClick={false}>
+        <Modal size={'mini'} 
+          open={this.state.modalOpen} 
+          onClose={this.closeModal} 
+          closeOnDimmerClick={false}>
           <Modal.Content>
             <div>
               {this.whatToRender()}
               <div className='spacer' />
+              <div className='center spacer'>
+               <a href="" onClick={this.closeModal}>I've changed my mind</a>
+              </div>
             </div>
           </Modal.Content>
         </Modal>

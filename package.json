@@ -17,7 +17,7 @@
   "bugs": {
     "url": "https://github.com/zachalam/AccountPhoto/issues"
   },
-  "homepage": "https://github.com/zachalam/AccountPhoto#readme",
+  "homepage": "https://accountphoto.com",
   "devDependencies": {
     "gh-pages": "^2.0.1"
   }

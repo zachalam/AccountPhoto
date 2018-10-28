@@ -59,7 +59,7 @@ class PhotoCropper extends Component {
 
   getCroppedImg(image, pixelCrop, fileName) {
     // don't crop image, unless it's available.
-    if(!image) return
+    if(!image || !pixelCrop || !fileName) return
 
     const canvas = document.createElement("canvas");
     canvas.width = pixelCrop.width;
@@ -78,13 +78,10 @@ class PhotoCropper extends Component {
       pixelCrop.height
     );
 
-    // As Base64 string
-    // const base64Image = canvas.toDataURL('image/jpeg');
-
     // As a blob
     return new Promise((resolve, reject) => {
       canvas.toBlob(file => {
-        file.name = fileName;
+        if(file) file.name = fileName;
         resolve(file);
       }, "image/jpeg");
     });
@@ -121,12 +118,9 @@ class PhotoCropper extends Component {
                 onClick={this.finalizePhoto} 
                 disabled={!this.state.crop.width} 
                 fluid
-            >Crop + link to {this.props.account.name}.</Button>
+            >Crop Photo</Button>
         </div>
         )}
-        <div className='center spacer'>
-            <a href="" onClick={this.props.closeModal}>I've changed my mind</a>
-        </div>
       </div>
     );
   }

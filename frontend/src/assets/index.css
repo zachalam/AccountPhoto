@@ -22,7 +22,7 @@ html, body {
     background-size: cover;    
   }
 
-  h1,h2 { padding:0.1em; margin:0.1em; }
+  h1,h2,h3 { padding:0.1em; margin:0.1em; }
 
   .spacer {
     padding:0.5em;
