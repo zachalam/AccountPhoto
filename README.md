@@ -1,6 +1,5 @@
-![AccountPhoto Screenshot](https://raw.githubusercontent.com/zachalam/AccountPhoto/master/frontend/public/ap-logo.png)
-
-AccountPhoto is a decentralize application or (dApp) for the EOS blockchain. It provides a way for users to globally link a photo to their account. Think Gravatar, but decentralized.
+# AccountPhoto
+AccountPhoto is a decentralized application or (dApp) for the EOS blockchain. It provides a way for users to globally link a photo to their account. **Think Gravatar, but decentralized.**
 
 
 ![AccountPhoto Screenshot](https://raw.githubusercontent.com/zachalam/AccountPhoto/master/frontend/public/ap-screen.png)
