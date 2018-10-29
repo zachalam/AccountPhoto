@@ -101,7 +101,7 @@ class Photo extends Component {
       <center>
       <CircleLoader
           sizeUnit={"px"}
-          size={150}
+          size={250}
           color={'#024359'}
           loading={true}
       />
@@ -111,12 +111,12 @@ class Photo extends Component {
 
     // confirmation
     if(uploadedHash) return (<div><h2>Confirm with Scatter</h2>
-        We've opened scatter for you, please confirm your photo.
+        We've opened scatter for you, please confirm your new account photo.
         <br /><br />
         {failResources && <div>
           <Label basic color='red' pointing='below'>
-          CANNOT SET PHOTO!
-          Your account does not have enough <a href="https://www.myeoskit.com/tools/bandwidth/stake" target="_blank">CPU or RAM</a> to complete this action.
+          PHOTO NOT SET!
+          Your account may not have enough <a href="https://www.myeoskit.com/tools/bandwidth/stake" target="_blank" rel="noopener noreferrer">CPU or RAM</a> to complete this action.
           </Label>
   
           <br /><br />

@@ -27,12 +27,12 @@ class Index extends Component {
       this.setState({ eos, account, authorization })
       // also get/save contract.
       eos.contract(config.network.contract)
-      .then((contract) => { 
-        this.setState({contract},() => {
-          this.setPhoto()
-        }) 
-        
-      });
+        .then((contract) => {
+          this.setState({ contract }, () => {
+            this.setPhoto()
+          })
+
+        });
     });
   }
 
@@ -50,18 +50,23 @@ class Index extends Component {
     let { eos, account } = this.state
     let { network } = config
 
-    if(hash) {
+    if (hash) {
       // hash provided just use that one.
-      this.setState({photo: ipfsUrl(hash)})
+      this.setState({ photo: ipfsUrl(hash) })
     } else {
       // check eos network for profile hash.
-      eos.getTableRows(true, network.contract, network.contract, 'photo', account.name)
-          .then((res) => {
-            let photo = res.rows[0]
-            console.log(photo)
-            // load in hash from ipfs
-            this.setState({photo: ipfsUrl(photo.photo_hash)})
-          });
+      eos.getTableRows({
+        json: true,
+        code: network.contract,
+        scope: network.contract,
+        table: "photo",
+        lower_bound: account.name
+      })
+        .then((res) => {
+          let photo = res.rows[0]
+          // load in hash from ipfs
+          this.setState({ photo: ipfsUrl(photo.photo_hash) })
+        });
     }
 
   }
@@ -77,10 +82,10 @@ class Index extends Component {
           This is how you currently appear on the EOS network.
           <div className={'spacer'} />
           <Button onClick={this.forgetScatter}>Unlink</Button>
-          <PhotoModal 
-            account={account} 
-            eos={eos} 
-            authorization={authorization} 
+          <PhotoModal
+            account={account}
+            eos={eos}
+            authorization={authorization}
             contract={contract}
             setPhoto={this.setPhoto}
           />
@@ -107,7 +112,7 @@ class Index extends Component {
       <div className={'center'}>
         <Card style={{ width: '100%', padding: '1.5em' }} color='grey'>
           <Image src={photo} />
-          <Card.Content>  
+          <Card.Content>
             <Card.Description>
               {this.renderMain()}
             </Card.Description>
