@@ -1,3 +1,8 @@
+![AccountPhoto Screenshot](https://raw.githubusercontent.com/zachalam/AccountPhoto/master/frontend/public/ap-logo.png)
+
+AccountPhoto is a decentralize application or (dApp) for the EOS blockchain. It provides a way for users to globally link a photo to their account. Think Gravatar, but decentralized.
+
+
 ![AccountPhoto Screenshot](https://raw.githubusercontent.com/zachalam/AccountPhoto/master/frontend/public/ap-screen.png)
 
 ## Developer Integration
@@ -11,7 +16,7 @@ eos.getTableRows({
     code: "accountphoto",
     scope: "accountphoto",
     table: "photo",
-    lower_bound: account.name
+    lower_bound: ACCOUNT_NAME
 }).then((res) => {
       let photo = res.rows[0]
       // you can save and/or display the photo, by reading "photo_hash"
