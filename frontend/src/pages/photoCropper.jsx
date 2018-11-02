@@ -14,7 +14,7 @@ class PhotoCropper extends Component {
       x: 10,
       y: 10,
       aspect: 1,
-      width: 20,
+      width: 40,
     }
   };
 
