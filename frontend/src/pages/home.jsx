@@ -4,6 +4,7 @@ import scatter from '../services/scatter'
 import ipfsUrl from '../services/ipfsUrl'
 import PhotoModal from './photoModal'
 import config from "../config/default";
+import Eos from "eosjs";
 
 // Index component
 class Index extends Component {
@@ -32,7 +33,7 @@ class Index extends Component {
             this.setPhoto()
           })
 
-        });
+        });      
     });
   }
 
@@ -55,17 +56,25 @@ class Index extends Component {
       this.setState({ photo: ipfsUrl(hash) })
     } else {
       // check eos network for profile hash.
+      let encodedName = Eos.modules.format.encodeName(account.name,false).toString()
+      console.log("en",encodedName)
       eos.getTableRows({
         json: true,
         code: network.contract,
         scope: network.contract,
         table: "photo",
-        lower_bound: account.name
+        lower_bound: encodedName,
       })
         .then((res) => {
           let photo = res.rows[0]
-          // load in hash from ipfs
-          this.setState({ photo: ipfsUrl(photo.photo_hash) })
+          // load in hash from ipfs if correct account name was loaded
+          if(photo.account_name === encodedName) {
+            console.log("accountphoto found")
+            this.setState({ photo: ipfsUrl(photo.photo_hash) })
+          } else {
+            console.log("no accountphoto found, fallback")
+            this.setState({ photo: ipfsUrl() })
+          }
         });
     }
 
