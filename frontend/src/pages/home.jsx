@@ -20,6 +20,8 @@ class Index extends Component {
   constructor(props) {
     super(props);
     this.setPhoto = this.setPhoto.bind(this)
+
+    this.linkScatter()    // link scatter onload
   }
 
   linkScatter = () => {
