@@ -4,8 +4,35 @@ AccountPhoto is a decentralized application or (dApp) for the EOS blockchain. It
 
 ![AccountPhoto Screenshot](https://raw.githubusercontent.com/zachalam/AccountPhoto/master/frontend/public/ap-screen.png)
 
-## Developer Integration
+## React Integration
 If you run your own EOS dApp, you can provide a more personalized experience by integrating AccountPhoto into your service. It only takes a few lines of code.
+
+1. Install
+```
+npm install accountphoto-react
+```
+
+2. Add
+```
+import AccountPhoto from 'accountphoto-react'
+import React, { Component } from 'react'
+ 
+import AccountPhoto from 'accountphoto-react'
+ 
+class Example extends Component {
+  render () {
+    return (
+      // simply add `account` name as prop.
+      <AccountPhoto account={'zachzachzach'} />
+      // overwrite `style` by passing to component.
+    )
+  }
+}
+```
+View on NPM: [https://www.npmjs.com/package/accountphoto-react](https://www.npmjs.com/package/accountphoto-react)
+
+## Custom Integration
+If you need to build your own integration, it's easy as well. Simply utilize your existing eos session.
 
 **ACCOUNT_NAME, the `lower_bound` param of `getTableRows`, needs the variable for the account name of the logged in user. Ie: 'zachzachzach'.**
 
