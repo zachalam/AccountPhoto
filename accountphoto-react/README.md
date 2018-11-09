@@ -15,12 +15,14 @@ npm install --save accountphoto-react
 ```jsx
 import React, { Component } from 'react'
 
-import MyComponent from 'accountphoto-react'
+import AccountPhoto from 'accountphoto-react'
 
 class Example extends Component {
   render () {
     return (
-      <MyComponent />
+      // simply add `account` name as prop.
+      <AccountPhoto account={'zachzachzach'} />
+      // overwrite `style` by passing to component.
     )
   }
 }
