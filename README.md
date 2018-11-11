@@ -14,7 +14,6 @@ npm install accountphoto-react
 
 2. Add
 ```
-import AccountPhoto from 'accountphoto-react'
 import React, { Component } from 'react'
  
 import AccountPhoto from 'accountphoto-react'
